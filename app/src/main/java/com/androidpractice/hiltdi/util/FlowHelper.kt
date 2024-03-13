@@ -13,7 +13,7 @@ fun <T1, T2, T3, T4, R> combineFlows(
     flow3: Flow<T3>,
     flow4: Flow<T4>,
     transform: suspend (T1, T2, T3, T4) -> R
-) : Flow<R> = combine(flow, flow2, flow3, flow4) { args: Array<*> ->
+) : Flow<R> = combine(flow, flow2, flow3, flow4) { args: Array<*> -> //combine the flows and in the lambda use  the generated args array to call the transform function that is to be placed in the combineFlows call
     transform(
         args[0] as T1,
         args[1] as T2,
