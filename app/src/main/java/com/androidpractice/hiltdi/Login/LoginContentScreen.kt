@@ -2,6 +2,8 @@ package com.androidpractice.hiltdi.Login
 
 import LoginViewModel
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import com.androidpractice.hiltdi.util.TestTags
 import kotlinx.coroutines.flow.Flow
 
@@ -10,7 +12,7 @@ fun LoginContentScreen(
     loginViewModel: LoginViewModel,
     onRegisterNavigateTo: () -> Unit
 ) {
-    val viewState: Flow<AuthenticationState> by loginViewModel.state.collectAsState
+    val viewState: AuthenticationState by loginViewModel.state.collectAsState()
 
     TestTags.LoginContent(
         uiState = viewState,

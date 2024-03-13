@@ -8,7 +8,7 @@ import com.androidpractice.hiltdi.util.SampleLoginDispatchers
 import com.androidpractice.hiltdi.util.combineFlows
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.stateIn
+import com.androidpractice.hiltdi.util.stateIn
 import kotlinx.coroutines.plus
 import javax.inject.Inject
 
@@ -68,6 +68,4 @@ class LoginViewModel @Inject constructor(
 
 }
 
-private fun <T> Flow<T>.stateIn(coroutineScope: Any, initialValue: T): T {
-    TODO("Not yet implemented")
-}
+
