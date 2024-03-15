@@ -10,7 +10,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.androidpractice.hiltdi.Login.LoginContentScreen
+import com.androidpractice.hiltdi.Login.RegisterContentScreen
 import com.androidpractice.hiltdi.ui.theme.HiltDITheme
+import com.androidpractice.hiltdi.util.Destination
+import dagger.hilt.android.AndroidEntryPoint
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -23,7 +33,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val navController = rememberNavController()
+                    
+                    Navigation(navController = navController)
                 }
             }
         }
@@ -45,3 +57,45 @@ fun GreetingPreview() {
         Greeting("Android")
     }
 }
+
+@Composable
+fun Navigation(navController: NavHostController) {
+    NavHost(navController, startDestination = Destination.LoginScreen.route) {
+        composable(Destination.LoginScreen.route) {
+            LoginContentScreen(loginViewModel = hiltViewModel(), onRegisterNavigateTo = {
+                navController.navigate(Destination.RegisterScreen.route)
+            })
+        }
+        composable(Destination.RegisterScreen.route) {
+            RegisterContentScreen(registerViewModel = hiltViewModel())
+
+        }
+
+//        composable(
+//            route = Destination.BrowseRepositoryScreen.route +
+//                    "/{org_name}",
+//            arguments = listOf(navArgument("org_name") { type
+//                = NavType.StringType }),
+//            enterTransition = { scaleIn(tween(700)) },
+//            exitTransition = { scaleOut(tween(700)) },
+//        ) {
+//            BrowseRepositoryScreen(
+//                viewModel = hiltViewModel(),
+//            )
+//        }
+
+    }
+}
+
+//sample navigation with arguments
+/*SearchScreen(
+viewModel = hiltViewModel(),
+navigateToRepositoryScreen = { orgName ->
+navController.navigate(
+Destination.BrowseRepositoryScreen.route +
+"/" + orgName
+)
+}
+)
+*/
+

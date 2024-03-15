@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name = "./LoginApp"
+        android:name = "LoginApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,7 +20,8 @@
             android:theme="@style/Theme.HiltDI">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <data android:scheme="https"
+                    android:host="www.instagram.com" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

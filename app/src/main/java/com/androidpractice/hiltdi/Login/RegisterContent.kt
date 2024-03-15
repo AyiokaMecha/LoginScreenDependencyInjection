@@ -11,38 +11,33 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardElevation
-import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.androidpractice.hiltdi.Login.components.LoginButton
 import com.androidpractice.hiltdi.Login.components.PasswordInputField
 import com.androidpractice.hiltdi.Login.components.UserNameField
 import com.androidpractice.hiltdi.R
-import com.androidpractice.hiltdi.util.TestTags
 import com.androidpractice.hiltdi.util.TestTags.LoginContent.LOGO_IMAGE
 
+
 @Composable
-fun TestTags.LoginContent(
+fun RegisterContent(
     modifier: Modifier = Modifier,
     uiState: AuthenticationState,
     onUsernameUpdated: (String) -> Unit,
     onPasswordUpdated: (String) -> Unit,
     onLogin: () -> Unit,
-    passwordToggleVisibility: (Boolean) -> Unit,
-    onRegister: () -> Unit
+    passwordToggleVisibility: (Boolean) -> Unit
 ) {
     val scrollState = rememberScrollState()
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -60,9 +55,8 @@ fun TestTags.LoginContent(
                 modifier = modifier
                     .testTag(LOGO_IMAGE),
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = "Logo"
+                contentDescription = "Ze Logo"
             )
-
         }
 
         Card(
@@ -70,8 +64,7 @@ fun TestTags.LoginContent(
             modifier = modifier
                 .fillMaxWidth()
                 .background(colorResource(id = R.color.purple_700))
-                .weight(5.0f),
-//            elevation = CardElevation(4.dp, 0.dp, 0.dp, 0.dp, 0.dp, 0.dp)
+                .weight(5.0f)
         ) {
             Column(
                 modifier = modifier
@@ -84,13 +77,13 @@ fun TestTags.LoginContent(
 
                 UserNameField(authState = uiState, onValueChanged = onUsernameUpdated)
                 PasswordInputField(
-                    text = "Password",
+                    text = "Create password ",
                     authState = uiState,
                     onValueChanged = onPasswordUpdated,
                     passwordToggleVisibility = passwordToggleVisibility
                 )
                 LoginButton(
-                    text = "Sign In",
+                    text = "Sign up",
                     enabled = if (uiState.isValidForm()) {
                         !uiState.loading
                     } else {
@@ -102,28 +95,7 @@ fun TestTags.LoginContent(
                     isLoading = uiState.loading
                 )
 
-                ClickableText(
-                    modifier = Modifier
-                        .padding(top = 12.dp)
-                        .testTag(TestTags.LoginContent.REGISTER_USER),
-                    text = AnnotatedString("First time user? Sign UP"),
-                    onClick = { onRegister.invoke() },
-                    style = TextStyle(
-                        colorResource(id = R.color.purple_700),
-                        fontSize = 16.sp
-                    )
-                )
             }
         }
     }
-}
-
-@Composable
-fun CheckableSwitch() {
-    Switch(checked = false, onCheckedChange = {})
-}
-
-@Composable
-fun NonCheckableSwitch() {
-    Switch(checked = false, onCheckedChange = null)
 }
